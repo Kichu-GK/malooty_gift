@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        25% {
+          transform: translateY(50vh) translateX(-10px);
+        }
+        50% {
+          transform: translateY(25vh) translateX(10px);
+        }
+        75% {
+          transform: translateY(0vh) translateX(-10px);
+        }
+        100% {
+          transform: translateY(-20vh) translateX(10px);
+          opacity: 0;
+        }
+      }
+
+      .balloon {
+        position: absolute;
+        width: 40px;
+        height: 60px;
+        background-color: rgba(255, 99, 132, 0.8);
+        border-radius: 50%;
+        animation: floatUp 6s linear infinite;
+        opacity: 0;
+      }
+
+      .balloon::after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 40px;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 2px dashed #aaa;
+      }
+
+      /* Different delay for each balloon */
+      .balloon:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .balloon:nth-child(2) {
+        left: 30%;
+        animation-delay: 1s;
+      }
+      .balloon:nth-child(3) {
+        left: 50%;
+        animation-delay: 2s;
+      }
+      .balloon:nth-child(4) {
+        left: 70%;
+        animation-delay: 3s;
+      }
+      .balloon:nth-child(5) {
+        left: 90%;
+        animation-delay: 4s;
+      }
+
+      .hidden-bg {
+        background: none !important;
+      }
+
+      .text-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .text-overlay h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .text-overlay p {
+        color: #f1f1f1;
+        font-size: 0.9rem;
+        max-width: 90%;
+        line-height: 1.5;
+      }
+
+      @media (min-width: 768px) {
+        .text-overlay h1 {
+          font-size: 2.5rem;
+        }
+        .text-overlay p {
+          font-size: 1.1rem;
+          max-width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body
+    id="body"
+    class="flex flex-col items-center justify-center min-h-screen bg-pink-300 relative overflow-hidden hidden-bg p-4"
+  >
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+      <source src="./bg_music.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Open Button -->
+    <div class="text-center text-xl text-gray-600 font-bold mb-5">
+      Just Click....!!!!
+    </div>
+    <button
+      id="openButton"
+      class="bg-pink-600 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-md hover:bg-pink-700 transition"
+    >
+      Open
+    </button>
+
+    <!-- Hidden Content -->
+    <div
+      id="content"
+      class="w-full md:w-3/4 bg-pink-100 p-4 md:p-8 rounded-lg shadow-lg text-center relative hidden"
+    >
+      <h2
+        class="text-white text-xs md:text-sm absolute top-2 md:top-4 left-1/2 transform -translate-x-1/2"
+      >
+        YOU TUBE COVER <br />
+        Valentines day 14/02/2024
+      </h2>
+      <div class="relative">
+        <img src="./malu_img.jpeg" alt="Couple" class="w-full rounded-lg" />
+        <div class="text-overlay">
+          <h1>Happy Birthday, Malu! ❤️</h1>
+          <p>
+            Happy Birthday, my dearest Malu! ❤️ From the days of our childhood,
+            when we first knew the magic of love, to the years of separation
+            that only made our bond stronger, fate has beautifully brought us
+            back together. Your kindness, your endless love, and the warmth in
+            your heart make every moment with you precious. You are my greatest
+            blessing, my Malootty, and I promise to fill our future with love,
+            laughter, and unwavering support. No matter what life brings, I will
+            always stand by you, cherishing and protecting our love. Wishing you
+            a day as beautiful as your soul and a year filled with endless
+            happiness. With all my love, your Kichu ❤️🎉✨
+          </p>
+        </div>
+      </div>
+      <div
+        class="absolute top-2 md:top-4 right-4 text-pink-600 font-bold text-sm md:text-base"
+      >
+        26/02 <br />
+        2024
+      </div>
+    </div>
+
+    <!-- Balloons (Initially Hidden) -->
+    <div class="balloon hidden"></div>
+    <div class="balloon hidden"></div>
+    <div class="balloon hidden"></div>
+    <div class="balloon hidden"></div>
+    <div class="balloon hidden"></div>
+
+    <script>
+      document
+        .getElementById("openButton")
+        .addEventListener("click", function () {
+          document.getElementById("content").classList.remove("hidden");
+
+          // Show all balloons with staggered animation
+          document.querySelectorAll(".balloon").forEach((balloon, index) => {
+            setTimeout(() => {
+              balloon.classList.remove("hidden");
+            }, index * 1000); // Delay each balloon by 1 second
+          });
+
+          // Show background image
+          document.getElementById("body").classList.remove("hidden-bg");
+          document.getElementById("body").style.background =
+            "url('./bd-bg.jpg') no-repeat center center/cover";
+
+          // Play music
+          let music = document.getElementById("bgMusic");
+          music.play();
+
+          this.style.display = "none"; // Hide button after opening
+        });
+    </script>
+  </body>
+</html>
