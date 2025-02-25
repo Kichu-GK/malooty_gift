@@ -1,0 +1,17 @@
+NA 619 - Not a part of initial requirement,[to-do after GO LIVE]
+	 ECD confirmed
+
+NA 620 - It's not a BUG, Not a part of initial requirement,[to-do after GO LIVE]
+	 ECD confirmed
+
+NA 621 - Minor BUG [before GO LIVE]
+
+NA 623 - Minor BUG [before GO LIVE]
+
+NA 624 - Minor BUG [before GO LIVE]
+
+NA 625 - Not a part of initial requirement, already reviewed 
+
+NA 626 - Not a part of initial requirement,
+
+NA 627 - Minor BUG [before GO LIVE]
